@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1   pdpipe &#8212; ezenum 0.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pdpipe">
+<h1><a class="toc-backref" href="#id1">1&nbsp;&nbsp;&nbsp;pdpipe</a><a class="headerlink" href="#pdpipe" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pypi.python.org/pypi/pdpipe"><img alt="PyPI-Status" src="https://img.shields.io/pypi/v/pdpipe.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/pdpipe"><img alt="PyPI-Versions" src="https://img.shields.io/pypi/pyversions/pdpipe.svg" /></a> <a class="reference external" href="https://travis-ci.org/shaypal5/pdpipe"><img alt="Build-Status" src="https://travis-ci.org/shaypal5/pdpipe.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/github/shaypal5/pdpipe?branch=master"><img alt="Codecov" src="https://codecov.io/github/shaypal5/pdpipe/coverage.svg?branch=master" /></a> <a class="reference external" href="https://pypi.python.org/pypi/pdpipe"><img alt="LICENCE" src="https://img.shields.io/pypi/l/pdpipe.svg" /></a></p>
+<p>Easy pipelines for pandas DataFrames.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="go">        data=[[4, 165, &#39;USA&#39;], [2, 180, &#39;UK&#39;], [2, 170, &#39;Greece&#39;]],</span>
+<span class="go">        index=[&#39;Dana&#39;, &#39;Jack&#39;, &#39;Nick&#39;],</span>
+<span class="go">        columns=[&#39;Medals&#39;, &#39;Height&#39;, &#39;Born&#39;]</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s1">&#39;Medals&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s1">&#39;Born&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipline</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="go">            Height  Born_UK  Born_USA</span>
+<span class="go">    Dana     165        0         1</span>
+<span class="go">    Jack     180        1         0</span>
+<span class="go">    Nick     170        0         0</span>
+</pre></div>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#pdpipe" id="id1">1&nbsp;&nbsp;&nbsp;pdpipe</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installation" id="id2">1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#features" id="id3">1.2&nbsp;&nbsp;&nbsp;Features</a><ul class="auto-toc">
+<li><a class="reference internal" href="#design-decisions" id="id4">1.2.1&nbsp;&nbsp;&nbsp;Design Decisions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use" id="id5">1.3&nbsp;&nbsp;&nbsp;Use</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pipeline-stages" id="id6">1.3.1&nbsp;&nbsp;&nbsp;Pipeline Stages</a><ul class="auto-toc">
+<li><a class="reference internal" href="#creating-pipline-stages" id="id7">1.3.1.1&nbsp;&nbsp;&nbsp;Creating Pipline Stages</a></li>
+<li><a class="reference internal" href="#applying-pipelines-stages" id="id8">1.3.1.2&nbsp;&nbsp;&nbsp;Applying Pipelines Stages</a></li>
+<li><a class="reference internal" href="#extending-pipelinestage" id="id9">1.3.1.3&nbsp;&nbsp;&nbsp;Extending PipelineStage</a></li>
+<li><a class="reference internal" href="#ad-hoc-pipeline-stages" id="id10">1.3.1.4&nbsp;&nbsp;&nbsp;Ad-Hoc Pipeline Stages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pipelines" id="id11">1.3.2&nbsp;&nbsp;&nbsp;Pipelines</a><ul class="auto-toc">
+<li><a class="reference internal" href="#creating-pipelines" id="id12">1.3.2.1&nbsp;&nbsp;&nbsp;Creating Pipelines</a></li>
+<li><a class="reference internal" href="#pipeline-arithmetics" id="id13">1.3.2.2&nbsp;&nbsp;&nbsp;Pipeline Arithmetics</a></li>
+<li><a class="reference internal" href="#pipeline-chaining" id="id14">1.3.2.3&nbsp;&nbsp;&nbsp;Pipeline Chaining</a></li>
+<li><a class="reference internal" href="#pipeline-slicing" id="id15">1.3.2.4&nbsp;&nbsp;&nbsp;Pipeline Slicing</a></li>
+<li><a class="reference internal" href="#applying-pipelines" id="id16">1.3.2.5&nbsp;&nbsp;&nbsp;Applying Pipelines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#types-of-pipeline-stages" id="id17">1.4&nbsp;&nbsp;&nbsp;Types of Pipeline Stages</a><ul class="auto-toc">
+<li><a class="reference internal" href="#basic-stages" id="id18">1.4.1&nbsp;&nbsp;&nbsp;Basic Stages</a></li>
+<li><a class="reference internal" href="#column-generation" id="id19">1.4.2&nbsp;&nbsp;&nbsp;Column Generation</a></li>
+<li><a class="reference internal" href="#scikit-learn-dependent-stages" id="id20">1.4.3&nbsp;&nbsp;&nbsp;Scikit-learn-dependent Stages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing" id="id21">1.5&nbsp;&nbsp;&nbsp;Contributing</a><ul class="auto-toc">
+<li><a class="reference internal" href="#installing-for-development" id="id22">1.5.1&nbsp;&nbsp;&nbsp;Installing for development</a></li>
+<li><a class="reference internal" href="#running-the-tests" id="id23">1.5.2&nbsp;&nbsp;&nbsp;Running the tests</a></li>
+<li><a class="reference internal" href="#adding-documentation" id="id24">1.5.3&nbsp;&nbsp;&nbsp;Adding documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#credits" id="id25">1.6&nbsp;&nbsp;&nbsp;Credits</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2><a class="toc-backref" href="#id2">1.1&nbsp;&nbsp;&nbsp;Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install <code class="docutils literal"><span class="pre">pdpipe</span></code> with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install pdpipe
+</pre></div>
+</div>
+<p>Some pipeline stages require <code class="docutils literal"><span class="pre">scikit-learn</span></code>; they will simply not be loaded if <code class="docutils literal"><span class="pre">scikit-learn</span></code> is not found on the system, and <code class="docutils literal"><span class="pre">pdpipe</span></code> will issue a warning. To use them you must also <a class="reference external" href="http://scikit-learn.org/stable/install.html">install scikit-learn</a>.</p>
+</div>
+<div class="section" id="features">
+<h2><a class="toc-backref" href="#id3">1.2&nbsp;&nbsp;&nbsp;Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Pure Python.</li>
+<li>Compatible with Python 3.5+.</li>
+<li>A simple interface.</li>
+<li>Informative prints and errros on pipeline application.</li>
+<li>Chainning pipeline stages constructor calls for easy, one-liners pipelines.</li>
+<li>Pipeline arithmetics.</li>
+</ul>
+<div class="section" id="design-decisions">
+<h3><a class="toc-backref" href="#id4">1.2.1&nbsp;&nbsp;&nbsp;Design Decisions</a><a class="headerlink" href="#design-decisions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Data science-oriented naming</strong> (rather than statistics).</li>
+<li><strong>A functional approach:</strong> Pipelines never change input DataFrames. Nothing is done &#8220;in place&#8221;.</li>
+<li><strong>Opinionated operations:</strong> Help novices avoid mistake by default appliance of good practices; e.g., binarizing (creating dummy variables) a colum will drop one of the resulting columns by default, to avoid <a class="reference external" href="http://www.algosome.com/articles/dummy-variable-trap-regression.html">the dummy variable trap</a> (perfect <a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">multicollinearity</a>).</li>
+<li><strong>Machine learning-oriented:</strong> The target use case is transforming tabular data into a vectorized dataset on which a machine learning model will be trained; e.g., column transformations will drop the source columns to avoid strong linear dependence.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="use">
+<h2><a class="toc-backref" href="#id5">1.3&nbsp;&nbsp;&nbsp;Use</a><a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pipeline-stages">
+<h3><a class="toc-backref" href="#id6">1.3.1&nbsp;&nbsp;&nbsp;Pipeline Stages</a><a class="headerlink" href="#pipeline-stages" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="creating-pipline-stages">
+<h4><a class="toc-backref" href="#id7">1.3.1.1&nbsp;&nbsp;&nbsp;Creating Pipline Stages</a><a class="headerlink" href="#creating-pipline-stages" title="Permalink to this headline">¶</a></h4>
+<p>You can create stages with the following syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdpipde</span> <span class="kn">as</span> <span class="nn">pdp</span>
+<span class="n">drop_name</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All pipeline stages have a predefined precondition function that returns True for dataframes to which the stage can be applied. By default, pipeline stages raise an exception if a DataFrame not meeting
+their precondition is piped through. This behaviour can be set per-stage by assigning <code class="docutils literal"><span class="pre">exraise</span></code> with a bool in the constructor call. If <code class="docutils literal"><span class="pre">exraise</span></code> is set to <code class="docutils literal"><span class="pre">False</span></code> the input DataFrame is instead returned without change:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">drop_name</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="n">exraise</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="applying-pipelines-stages">
+<h4><a class="toc-backref" href="#id8">1.3.1.2&nbsp;&nbsp;&nbsp;Applying Pipelines Stages</a><a class="headerlink" href="#applying-pipelines-stages" title="Permalink to this headline">¶</a></h4>
+<p>You can apply a pipeline stage to a DataFrame using its <code class="docutils literal"><span class="pre">apply</span></code> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">res_df</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pipeline stages are also callables, making the following syntax equivalent:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">drop_name</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">drop_name</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The initialized exception behaviour of a pipeline stage can be overriden on a per-application basis:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">drop_name</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="n">exraise</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">drop_name</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exraise</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additionaly, to have an explaination message print after the precondition is checked but before the application of the pipeline stage, pass <code class="docutils literal"><span class="pre">verbose=True</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">res_df</span> <span class="o">=</span> <span class="n">drop_name</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extending-pipelinestage">
+<h4><a class="toc-backref" href="#id9">1.3.1.3&nbsp;&nbsp;&nbsp;Extending PipelineStage</a><a class="headerlink" href="#extending-pipelinestage" title="Permalink to this headline">¶</a></h4>
+<p>To use other stages than the built-in ones (see <a class="reference internal" href="#types-of-pipeline-stages">Types of Pipeline Stages</a>) you can extend the <code class="docutils literal"><span class="pre">PipelineStage</span></code> class. The constructor must pass the <code class="docutils literal"><span class="pre">PipelineStage</span></code> constructor the <code class="docutils literal"><span class="pre">exmsg</span></code>, <code class="docutils literal"><span class="pre">appmsg</span></code> and <code class="docutils literal"><span class="pre">desc</span></code> keyword arguments to set the exception message, application message and description for the pipeline stage, respectively. Additionally, the <code class="docutils literal"><span class="pre">_prec</span></code> and <code class="docutils literal"><span class="pre">_op</span></code> abstract methods must be implemented to define the precondition and the effect of the new pipeline stage, respectively.</p>
+</div>
+<div class="section" id="ad-hoc-pipeline-stages">
+<h4><a class="toc-backref" href="#id10">1.3.1.4&nbsp;&nbsp;&nbsp;Ad-Hoc Pipeline Stages</a><a class="headerlink" href="#ad-hoc-pipeline-stages" title="Permalink to this headline">¶</a></h4>
+<p>To create a custom pipeline stage without creating a proper new class, you can instantiate the <code class="docutils literal"><span class="pre">AdHocStage</span></code> class which takes a function in its <code class="docutils literal"><span class="pre">op</span></code> contructor parameter to define the stage&#8217;s operation, and the optional <code class="docutils literal"><span class="pre">prec</span></code> paramter to define a precondition (an alway-true function is the default).</p>
+</div>
+</div>
+<div class="section" id="pipelines">
+<h3><a class="toc-backref" href="#id11">1.3.2&nbsp;&nbsp;&nbsp;Pipelines</a><a class="headerlink" href="#pipelines" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="creating-pipelines">
+<h4><a class="toc-backref" href="#id12">1.3.2.1&nbsp;&nbsp;&nbsp;Creating Pipelines</a><a class="headerlink" href="#creating-pipelines" title="Permalink to this headline">¶</a></h4>
+<p>Pipelines can be created by supplying a list of pipeline stages:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">([</span><span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">),</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pipeline-arithmetics">
+<h4><a class="toc-backref" href="#id13">1.3.2.2&nbsp;&nbsp;&nbsp;Pipeline Arithmetics</a><a class="headerlink" href="#pipeline-arithmetics" title="Permalink to this headline">¶</a></h4>
+<p>Alternatively, you can add pipeline stages together:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or even by adding pipelines together or pipelines to pipeline stages:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span>
+<span class="n">pipeline</span> <span class="o">+=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ApplyToRows</span><span class="p">(</span><span class="s2">&quot;Job&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Part&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;Full&quot;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">})</span>
+<span class="n">pipeline</span> <span class="o">+=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">([</span><span class="n">pdp</span><span class="o">.</span><span class="n">ColRename</span><span class="p">({</span><span class="s2">&quot;Job&quot;</span><span class="p">:</span> <span class="s2">&quot;Employed&quot;</span><span class="p">})])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pipeline-chaining">
+<h4><a class="toc-backref" href="#id14">1.3.2.3&nbsp;&nbsp;&nbsp;Pipeline Chaining</a><a class="headerlink" href="#pipeline-chaining" title="Permalink to this headline">¶</a></h4>
+<p>Pipline stages can also be chained to other stages to create pipelines:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ValDrop</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Children&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pipeline-slicing">
+<h4><a class="toc-backref" href="#id15">1.3.2.4&nbsp;&nbsp;&nbsp;Pipeline Slicing</a><a class="headerlink" href="#pipeline-slicing" title="Permalink to this headline">¶</a></h4>
+<p>Pipelines are Python Sequence objects, and as such can be sliced using Python&#8217;s slicing notation, just like lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ValDrop</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Children&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ApplyByCols</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">)</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">](</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="applying-pipelines">
+<h4><a class="toc-backref" href="#id16">1.3.2.5&nbsp;&nbsp;&nbsp;Applying Pipelines</a><a class="headerlink" href="#applying-pipelines" title="Permalink to this headline">¶</a></h4>
+<p>Pipelines are pipeline stages themselves, and can be applied to a DataFrame using the same syntax, applying each of the stages making them up, in order:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Assigning the <code class="docutils literal"><span class="pre">exraise</span></code> paramter to a pipeline apply call with a bool sets or unsets exception raising on failed preconditions for all contained stages:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">ColDrop</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pdp</span><span class="o">.</span><span class="n">Binarize</span><span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">)</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exraise</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additionally, passing <code class="docutils literal"><span class="pre">verbose=True</span></code> to a pipeline apply call will apply all pipeline stages verbosely:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">res_df</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="types-of-pipeline-stages">
+<h2><a class="toc-backref" href="#id17">1.4&nbsp;&nbsp;&nbsp;Types of Pipeline Stages</a><a class="headerlink" href="#types-of-pipeline-stages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-stages">
+<h3><a class="toc-backref" href="#id18">1.4.1&nbsp;&nbsp;&nbsp;Basic Stages</a><a class="headerlink" href="#basic-stages" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>AdHocStage - Define custom pipeline stages on the fly.</li>
+<li>ColDrop - Drop columns by name.</li>
+<li>ValDrop - Drop rows by by their value in specific or all columns.</li>
+<li>ValKeep - Keep rows by by their value in specific or all columns.</li>
+<li>ColRename - Rename columns.</li>
+</ul>
+</div>
+<div class="section" id="column-generation">
+<h3><a class="toc-backref" href="#id19">1.4.2&nbsp;&nbsp;&nbsp;Column Generation</a><a class="headerlink" href="#column-generation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Bin - Convert a continous valued column to categoric data using binning.</li>
+<li>Binarize - Convert a categorical column to the several binary columns corresponding to it.</li>
+<li>ApplyToRows - Generate columns by applying a function to each row.</li>
+<li>ApplyByCols - Generate columns by applying an element-wise function to columns.</li>
+</ul>
+</div>
+<div class="section" id="scikit-learn-dependent-stages">
+<h3><a class="toc-backref" href="#id20">1.4.3&nbsp;&nbsp;&nbsp;Scikit-learn-dependent Stages</a><a class="headerlink" href="#scikit-learn-dependent-stages" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Encode - Encode a categorical column to corresponding number values.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="contributing">
+<h2><a class="toc-backref" href="#id21">1.5&nbsp;&nbsp;&nbsp;Contributing</a><a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Package author and current maintainer is Shay Palachy (<a class="reference external" href="mailto:shay&#46;palachy&#37;&#52;&#48;gmail&#46;com">shay<span>&#46;</span>palachy<span>&#64;</span>gmail<span>&#46;</span>com</a>); You are more than welcome to approach him for help. Contributions are very welcomed, especially since this package is very much in its infancy and many other pipeline stages can be added.</p>
+<div class="section" id="installing-for-development">
+<h3><a class="toc-backref" href="#id22">1.5.1&nbsp;&nbsp;&nbsp;Installing for development</a><a class="headerlink" href="#installing-for-development" title="Permalink to this headline">¶</a></h3>
+<p>Clone:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git@github.com:shaypal5/pdpipe.git
+</pre></div>
+</div>
+<p>Install in development mode with test dependencies:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> pdpipe
+pip install -e <span class="s2">&quot;.[test]&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-tests">
+<h3><a class="toc-backref" href="#id23">1.5.2&nbsp;&nbsp;&nbsp;Running the tests</a><a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h3>
+<p>To run the tests, use:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python -m pytest --cov<span class="o">=</span>pdpipe
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-documentation">
+<h3><a class="toc-backref" href="#id24">1.5.3&nbsp;&nbsp;&nbsp;Adding documentation</a><a class="headerlink" href="#adding-documentation" title="Permalink to this headline">¶</a></h3>
+<p>This project is documented using the <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">numpy docstring conventions</a>, which were chosen as they are perhaps the most widely-spread conventions that are both supported by common tools such as Sphinx and result in human-readable docstrings (in my personal opinion, of course). When documenting code you add to this project, please follow <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">these conventions</a>.</p>
+</div>
+</div>
+<div class="section" id="credits">
+<h2><a class="toc-backref" href="#id25">1.6&nbsp;&nbsp;&nbsp;Credits</a><a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<p>Created by Shay Palachy  (<a class="reference external" href="mailto:shay&#46;palachy&#37;&#52;&#48;gmail&#46;com">shay<span>&#46;</span>palachy<span>&#64;</span>gmail<span>&#46;</span>com</a>).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1&nbsp;&nbsp;&nbsp;pdpipe</a><ul>
+<li><a class="reference internal" href="#installation">1.1&nbsp;&nbsp;&nbsp;Installation</a></li>
+<li><a class="reference internal" href="#features">1.2&nbsp;&nbsp;&nbsp;Features</a><ul>
+<li><a class="reference internal" href="#design-decisions">1.2.1&nbsp;&nbsp;&nbsp;Design Decisions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use">1.3&nbsp;&nbsp;&nbsp;Use</a><ul>
+<li><a class="reference internal" href="#pipeline-stages">1.3.1&nbsp;&nbsp;&nbsp;Pipeline Stages</a><ul>
+<li><a class="reference internal" href="#creating-pipline-stages">1.3.1.1&nbsp;&nbsp;&nbsp;Creating Pipline Stages</a></li>
+<li><a class="reference internal" href="#applying-pipelines-stages">1.3.1.2&nbsp;&nbsp;&nbsp;Applying Pipelines Stages</a></li>
+<li><a class="reference internal" href="#extending-pipelinestage">1.3.1.3&nbsp;&nbsp;&nbsp;Extending PipelineStage</a></li>
+<li><a class="reference internal" href="#ad-hoc-pipeline-stages">1.3.1.4&nbsp;&nbsp;&nbsp;Ad-Hoc Pipeline Stages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pipelines">1.3.2&nbsp;&nbsp;&nbsp;Pipelines</a><ul>
+<li><a class="reference internal" href="#creating-pipelines">1.3.2.1&nbsp;&nbsp;&nbsp;Creating Pipelines</a></li>
+<li><a class="reference internal" href="#pipeline-arithmetics">1.3.2.2&nbsp;&nbsp;&nbsp;Pipeline Arithmetics</a></li>
+<li><a class="reference internal" href="#pipeline-chaining">1.3.2.3&nbsp;&nbsp;&nbsp;Pipeline Chaining</a></li>
+<li><a class="reference internal" href="#pipeline-slicing">1.3.2.4&nbsp;&nbsp;&nbsp;Pipeline Slicing</a></li>
+<li><a class="reference internal" href="#applying-pipelines">1.3.2.5&nbsp;&nbsp;&nbsp;Applying Pipelines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#types-of-pipeline-stages">1.4&nbsp;&nbsp;&nbsp;Types of Pipeline Stages</a><ul>
+<li><a class="reference internal" href="#basic-stages">1.4.1&nbsp;&nbsp;&nbsp;Basic Stages</a></li>
+<li><a class="reference internal" href="#column-generation">1.4.2&nbsp;&nbsp;&nbsp;Column Generation</a></li>
+<li><a class="reference internal" href="#scikit-learn-dependent-stages">1.4.3&nbsp;&nbsp;&nbsp;Scikit-learn-dependent Stages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing">1.5&nbsp;&nbsp;&nbsp;Contributing</a><ul>
+<li><a class="reference internal" href="#installing-for-development">1.5.1&nbsp;&nbsp;&nbsp;Installing for development</a></li>
+<li><a class="reference internal" href="#running-the-tests">1.5.2&nbsp;&nbsp;&nbsp;Running the tests</a></li>
+<li><a class="reference internal" href="#adding-documentation">1.5.3&nbsp;&nbsp;&nbsp;Adding documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#credits">1.6&nbsp;&nbsp;&nbsp;Credits</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Shay Palachy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/README.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
