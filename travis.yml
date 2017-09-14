@@ -10,6 +10,6 @@ before_install:
   # - pip install codecov
 install:
   - pip install ".[test]"
-script: pytest --cov=fleeb
+script: pytest --cov=schlami
 after_success:
   - codecov
