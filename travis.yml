@@ -10,6 +10,6 @@ before_install:
   # - pip install codecov
 install:
   - pip install ".[test]"
-script: pytest --cov=dinglebop
+script: pytest --cov=shleem
 after_success:
   - codecov
