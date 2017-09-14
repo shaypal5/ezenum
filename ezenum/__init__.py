@@ -4,7 +4,7 @@ __version__ = get_versions()['version']
 del get_versions
 
 from .core import (
-    StringDenum,
+    StringEnum,
     string_enum,
 )
 try:

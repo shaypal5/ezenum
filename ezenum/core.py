@@ -5,7 +5,7 @@ import enum
 
 
 
-class StringDenum(collections.abc.Sequence):
+class StringEnum(collections.abc.Sequence):
     """Easy, ordered enum-like objects from String lists.
 
     Arguments
@@ -31,8 +31,11 @@ class StringDenum(collections.abc.Sequence):
         return str(self.members)
 
 
-def string_enum(name, member_list):
-    """Get an orderable enum of strings from the given list."""
-    return type(name, enum.Enum, {
-        member: member for member in member_list
-    })
+# class StringEnum(enum.Enum):
+
+
+# def string_enum(name, member_list):
+#     """Get an orderable enum of strings from the given list."""
+#     return type(name, (enum.EnumMeta), {
+#         member: member for member in member_list
+#     })
