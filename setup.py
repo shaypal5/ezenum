@@ -19,7 +19,7 @@ TEST_REQUIRES = ['pytest', 'coverage', 'pytest-cov']
 
 
 setup(
-    name='hizzard',
+    name='chumble',
     description="Great package.",
     long_description=README_RST,
     author="Shay Palachy",
@@ -28,7 +28,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     url='https://github.com/shaypal5/ezenum',
     license="MIT",
-    packages=['hizzard'],
+    packages=['chumble'],
     install_requires=[],
     extras_require={
         'test': TEST_REQUIRES
