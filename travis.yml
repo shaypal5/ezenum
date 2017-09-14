@@ -10,6 +10,6 @@ before_install:
   # - pip install codecov
 install:
   - pip install ".[test]"
-script: pytest --cov=plumbus
+script: pytest --cov=dinglebop
 after_success:
   - codecov

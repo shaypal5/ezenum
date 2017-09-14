@@ -19,8 +19,8 @@ TEST_REQUIRES = ['pytest', 'coverage', 'pytest-cov']
 
 
 setup(
-    name='plumbus',
-    description="Easy enums for python.",
+    name='dinglebop',
+    description="Great package.",
     long_description=README_RST,
     author="Shay Palachy",
     author_email="shaypal5@gmail.com",
@@ -28,7 +28,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     url='https://github.com/shaypal5/ezenum',
     license="MIT",
-    packages=['plumbus'],
+    packages=['dinglebop'],
     install_requires=[],
     extras_require={
         'test': TEST_REQUIRES
