@@ -1,2 +1,2 @@
 include versioneer.py
-include trove/_version.py
+include stack/_version.py
