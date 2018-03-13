@@ -1,2 +1,2 @@
 include versioneer.py
-include shed/_version.py
+include brazier/_version.py
