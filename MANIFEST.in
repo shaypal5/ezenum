@@ -1,2 +1,2 @@
 include versioneer.py
-include cargo/_version.py
+include barn/_version.py
