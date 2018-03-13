@@ -95,4 +95,4 @@ tags
 .vscode
 
 # vim
-.swp
+*.swp
