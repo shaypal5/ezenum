@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = "v"
-    cfg.parentdir_prefix = "ezenum-"
-    cfg.versionfile_source = "ezenum/_version.py"
+    cfg.parentdir_prefix = "box-"
+    cfg.versionfile_source = "box/_version.py"
     cfg.verbose = False
     return cfg
 
