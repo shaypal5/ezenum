@@ -1,2 +1,2 @@
 include versioneer.py
-include vessel/_version.py
+include trove/_version.py
