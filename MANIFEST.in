@@ -1,2 +1,2 @@
 include versioneer.py
-include barge/_version.py
+include kegs/_version.py
