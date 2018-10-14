@@ -74,6 +74,12 @@ To run the tests, use:
 
 .. code-block:: bash
 
+  pytest
+  
+If that doesn't work, this should:
+
+.. code-block:: bash
+
   python -m pytest --cov=ezenum
 
 
