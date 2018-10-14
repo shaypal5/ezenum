@@ -1,2 +1,2 @@
 include versioneer.py
-include kegs/_version.py
+include ezenum/_version.py

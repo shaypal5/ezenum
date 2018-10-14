@@ -15,11 +15,16 @@ README_RST = ''
 with open('README.rst') as f:
     README_RST = f.read()
 
-TEST_REQUIRES = ['pytest', 'coverage', 'pytest-cov']
+TEST_REQUIRES = [
+    # testing and coverage
+    'pytest', 'coverage', 'pytest-cov',
+    # to be able to run `python setup.py checkdocs`
+    'collective.checkdocs', 'pygments',
+]
 
 
 setup(
-    name='kegs',
+    name='ezenum',
     description="Great package.",
     long_description=README_RST,
     author="Shay Palachy",
@@ -28,7 +33,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     url='https://github.com/shaypal5/ezenum',
     license="MIT",
-    packages=['kegs'],
+    packages=['ezenum'],
     install_requires=[],
     extras_require={
         'test': TEST_REQUIRES
