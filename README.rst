@@ -6,6 +6,7 @@ Easy enums for Python.
 
 .. code-block:: python
 
+  >>> from ezenum import StringEnum
   >>> RGB = StringEnum(['Red', 'Green', 'Blue'])
   >>> RGB.Red
       'Red'
