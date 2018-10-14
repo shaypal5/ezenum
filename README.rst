@@ -28,7 +28,8 @@ Features
 ========
 
 * Pure Python.
-* Compatible with Python 3.5+.
+* No package dependencies.
+* Compatible with Python 3.4+.
 * Easy creation of usefull enum objects.
 * String enums with unified value and name attributes.
 
