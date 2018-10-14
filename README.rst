@@ -101,16 +101,16 @@ Created by Shay Palachy (shay.palachy@gmail.com).
 
 
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/ezenum.svg
-  :target: https://pypi.python.org/pypi/ezenum
+  :target: https://pypi.org/project/ezenum
 
 .. |PyPI-Versions| image:: https://img.shields.io/pypi/pyversions/ezenum.svg
-   :target: https://pypi.python.org/pypi/ezenum
+   :target: https://pypi.org/project/ezenum
 
 .. |Build-Status| image:: https://travis-ci.org/shaypal5/ezenum.svg?branch=master
   :target: https://travis-ci.org/shaypal5/ezenum
 
 .. |LICENCE| image:: https://img.shields.io/pypi/l/ezenum.svg
-  :target: https://pypi.python.org/pypi/ezenum
+   :target: https://pypi.org/project/ezenum
 
 .. |Codecov| image:: https://codecov.io/github/shaypal5/ezenum/coverage.svg?branch=master
    :target: https://codecov.io/github/shaypal5/ezenum?branch=master
